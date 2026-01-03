@@ -1,0 +1,16 @@
+[build]
+  command = "npm run build"
+  publish = ".next"
+
+[build.environment]
+  NEXT_PUBLIC_SUPABASE_URL = "https://ocjxewdtihtlhckhrxit.supabase.co"
+  NEXT_PUBLIC_SUPABASE_ANON_KEY = "sb_publishable_OrGLz6VTWwbnka1AMvTKLQ_1fV4aTep"
+
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
+
+# إذا كنت تستخدم ديناميكية في التوجيه، أضف التالي:
+[[plugins]]
+  package = "@netlify/plugin-nextjs"
