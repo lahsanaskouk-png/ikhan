@@ -5,8 +5,8 @@ export async function createClient() {
   const cookieStore = cookies()
 
   return createServerClient(
-    'https://ocjxewdtihtlhckhrxit.supabase.co',
-    'sb_publishable_OrGLz6VTWwbnka1AMvTKLQ_1fV4aTep',
+    process.env.NEXT_PUBLIC_SUPABASE_URL!,
+    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
     {
       cookies: {
         getAll() {
@@ -14,12 +14,13 @@ export async function createClient() {
         },
         setAll(cookiesToSet) {
           try {
-            cookiesToSet.forEach(({ name, value, options }) => {
+            cookiesToSet.forEach(({ name, value, options }) =>
               cookieStore.set(name, value, options)
-            })
+            )
           } catch {
-            // يتم استدعاء setAll أحياناً من Server Components
-            // ويمكن تجاهله إذا كان لديك middleware لتجديد الجلسة
+            // The `setAll` method was called from a Server Component.
+            // This can be ignored if you have middleware refreshing
+            // user sessions.
           }
         },
       },
